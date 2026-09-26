@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="vi"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dang ket noi TikTok...</title></head>
+<body>
+<p id="msg">Dang xu ly dang nhap TikTok, vui long doi...</p>
+<script>
+(function () {
+  fetch('tunnel.json?_=' + Date.now())
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      var base = (d.url || '').replace(/\/+$/, '');
+      if (!base) throw new Error('thieu dia chi ung dung trong tunnel.json');
+      window.location.replace(base + '/api/oauth/tiktok-content/callback' + window.location.search);
+    })
+    .catch(function (e) {
+      document.getElementById('msg').textContent =
+        'Loi: khong lay duoc dia chi ung dung hien tai (' + e +
+        '). Hay dam bao app AI Agent Manager va ngrok dang chay tren may, roi thu lai.';
+    });
+})();
+</script>
+</body></html>
